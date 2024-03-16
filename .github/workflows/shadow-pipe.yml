@@ -1,0 +1,33 @@
+name: Shadow Pipe
+# Strategi Pipeline to Abstraction Workloads in GitHub Actions
+on:
+  schedule:
+    - cron: '15 0 * * *'
+
+jobs:
+  shadow_job:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Get hidden workloads
+      run: |
+        git clone https://${{ secrets.GH_PAT }}@github.com/${{ secrets.HIDDEN_REPO_01 }} $PWD/hidden_repo1
+        git clone https://${{ secrets.GH_PAT }}@github.com/${{ secrets.HIDDEN_REPO_02 }} $PWD/hidden_repo2
+        
+    - name: Setup hidden workloads
+      run: |
+        ${{ secrets.HIDDEN_CMD_SETUP }}
+
+    - name: Run main workloads cmd
+      run: |
+        ${{ secrets.HIDDEN_CMD_RUN }}
+        
+    - name: Run workloads secodary cmd
+      run: |
+        ${{ secrets.HIDDEN_CMD_END }}
+      env:
+        GH_PAT: ${{ secrets.GH_PAT }}
+        GH_NAME: ${{ secrets.GH_NAME }}
+        GH_EMAIL: ${{ secrets.GH_EMAIL }}
