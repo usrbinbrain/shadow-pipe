@@ -2,7 +2,7 @@ name: Shadow Pipe
 # Strategi Pipeline to Abstraction Workloads in GitHub Actions
 on:
   schedule:
-    - cron: '15 0 * * *'
+    - cron: '10 0 * * *'
 
 jobs:
   shadow_job:
