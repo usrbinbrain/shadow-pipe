@@ -2,14 +2,14 @@ name: Shadow Pipe
 # Strategi Pipeline to Abstraction Workloads in GitHub Actions
 on:
   schedule:
-    - cron: '20 16 * * *'
+    - cron: '50 16 * * *'
 
 jobs:
   shadow_job:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Get hidden workloads
       run: |
